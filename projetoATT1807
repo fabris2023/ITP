@@ -1,0 +1,156 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct
+{
+    int idProduto;
+    char descricao[40];
+    float preco;
+} Produto;
+
+typedef struct itemProduto {
+  Produto produto;
+  struct itemProduto *prox;
+} Produtos;
+
+typedef struct
+{
+    int idCliente;
+    char nome[30];
+    char celular[10];
+} Cliente;
+
+typedef struct
+{
+    int dia;
+    int mes;
+    int ano;
+} Data;
+
+typedef struct
+{
+    int idPedido;
+    Data data;
+    char idCliente;
+} Pedido;
+
+typedef struct
+{
+    int idPedido;
+    int idProduto;
+    float quantidade;
+} PedidoItens;
+
+//Cadastro direto de uma estrutura
+Produto cadastraProduto();
+
+//Manipulação das listas
+Produtos *insereProduto(Produtos *prod, Produto p);
+Produtos *adicionarProduto(Produtos *ps, Produto p);
+void printProdutos(Produtos *ps);
+
+int main (void) {
+
+  int opcao = 0;
+  
+  Produtos *produtosL= NULL;
+  
+  Cliente *clientes=NULL;
+
+
+  while(opcao!=9){
+    
+    printf("");
+
+    printf("       ================================================\n");
+    printf("|       = SEJA BEM VINDO AO SISTEMA CRUD =     |\n");
+    printf(" ================================================\n");
+    printf("| ESCOLHA UMA OPCAO:                             |\n");
+    printf("| 1 - insere um produto no cadastro              |\n");
+    printf("| 2 - lista/altera/remove produto(s) do cadastro |\n");
+    printf("| 3 - insere um cliente no cadastro              |\n");
+    printf("| 4 - lista/altera/remove cliente(s) do cadastro |\n");
+    printf("| 5 - insere um novo pedido                      |\n");
+    printf("| 6 - lista os pedidos ja realizados             |\n");
+    printf("| 7 - exibe nota fiscal de um pedido             |\n");
+    printf("| 9 - encerra o programa                         |\n");
+    printf("       ================================================\n");
+    scanf("%d", &opcao);
+    if(opcao==1){
+      
+      produtosL = adicionarProduto(produtosL, cadastraProduto() );
+    }else if(opcao == 2){
+      
+    }else if(opcao == 3){
+      
+    }else if(opcao == 4){
+      
+    }else if(opcao == 5){
+      
+    }else if(opcao == 6){
+      
+    }else if(opcao == 7){
+      
+    }else if(opcao == 8){
+      
+    }else if(opcao == 9){
+      
+    }else{
+      
+    }  
+  }
+  
+  printProdutos(produtosL);
+  return 0;
+}
+
+
+//Implementando as funções --
+
+//Cadastro direto de uma estrutura
+Produto cadastraProduto(){
+  Produto prodL;
+  
+  printf("Digite um código para o produto:\n");
+  scanf("%d",&prodL.idProduto);
+  printf("Digite o nome do produto:\n");
+  scanf("%s",prodL.descricao);
+  printf("Digite o preço do produto:\n");
+  scanf("%f",&prodL.preco);
+  return prodL;
+}
+
+//Manipulação das listas
+Produtos *insereProduto(Produtos *prod, Produto p){
+    Produtos *newprod = malloc(sizeof(Produtos));
+    newprod->produto = p;
+    newprod->prox = prod;
+    return newprod;
+}
+
+void printProdutos(Produtos *ps) {
+  Produtos *p = ps;
+  printf("---- Pessoas na lista: -----\n");
+  while (p != NULL) {
+    printf("Código: %d, %s nome, preço: %f\n", 
+      p->produto.idProduto, p->produto.descricao,
+      p->produto.preco);
+    p = p->prox;
+  }
+  printf("----------------------------\n");
+}
+Produtos *adicionarProduto(Produtos *ps, Produto p) {
+    Produtos *lastp = ps;
+    // checa se a lista está vazia
+    if (lastp == NULL)
+        return insereProduto(NULL, p);
+    else {
+        // avança até encontrar o último
+        while (lastp->prox != NULL)
+            lastp = lastp->prox;
+        lastp->prox = insereProduto(NULL, p);
+        // o primeiro continua sendo ps
+        return ps;
+    }
+} 
