@@ -129,13 +129,24 @@ Produtos *insereProduto(Produtos *prod, Produto p){
     return newprod;
 }
 
+
+
 void printProdutos(Produtos *ps) {
   Produtos *p = ps;
-  printf("---- Pessoas na lista: -----\n");
+  printf("---- Produtos na lista: -----\n");
+  printf("   Código   |         Descrição         |   Preço   \n");
+  
   while (p != NULL) {
-    printf("Código: %d, %s nome, preço: %f\n", 
-      p->produto.idProduto, p->produto.descricao,
-      p->produto.preco);
+    printf("     %d     |%s", p->produto.idProduto, p->produto.descricao); 
+      int contadorEspacos =strlen(p->produto.descricao);
+      while(contadorEspacos<27){
+        printf(" ");
+        contadorEspacos++;
+      }
+      printf("|%0.2f\n",p->produto.preco);
+      //p->produto.descricao;
+      //p->produto.preco);
+    
     p = p->prox;
   }
   printf("----------------------------\n");
@@ -153,4 +164,33 @@ Produtos *adicionarProduto(Produtos *ps, Produto p) {
         // o primeiro continua sendo ps
         return ps;
     }
-} 
+}
+
+void alteraProdutos(Produtos *ps) {
+  Produtos *p = ps;
+  int opcao =0;
+  printf("1-Alterar produto pelo código\n2-Alterar produto pelo nome");
+  if(opcao==1){
+    int codigo=0;
+    printf("Digite o código");
+    scanf("%d", &codigo);
+    while (p != NULL) {
+      if(p->produto.idProduto==codigo){
+        printf("1 para alterar descrição\n 2 para alterar preço");
+        scanf("%d", &opcao);
+        if(opcao ==1){
+          char novoNome[40];
+          
+          printf("Deseja alterar %s para qual nome?",p->produto.descricao);
+          scanf("%s", novoNome);
+          
+        }
+        }
+      p = p->prox;
+    }    
+    
+  }else{
+    
+  }
+  printf("----------------------------\n");
+}
