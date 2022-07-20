@@ -63,6 +63,7 @@ void printProdutos(Produtos *ps);
 
 Clientes *insereClientes (Clientes *clie, Cliente c);
 Clientes *adicionaClientes (Clientes *clie,Cliente c );
+Clientes *alteraClientes(Clientes *cs);
 
 int main (void)
 {
@@ -443,5 +444,94 @@ Clientes *adicionaClientes(Clientes *clie, Cliente c){
         // o primeiro continua sendo ps
         return clie;
     }
+
+}
+
+Clientes *alteraClientes(Clientes *cs){
+
+    Clientes *c = cs;
+    int opcao =0;
+    printf("ESCOLHA UMA OPÇÃO\n");
+    printf("| 1-Alterar cliente pelo código\n| 2-Alterar cliente pelo nome\n");
+    scanf("%d", &opcao);
+    if(opcao==1)
+    {
+        int codigo=0;
+        printf("Digite o código\n");
+        scanf("%d", &codigo);
+        while (c!= NULL)
+        {
+            if(c->cliente.idCliente==codigo)
+            {
+                printf("| 1 para alterar nome\n| 2 para alterar telefone");
+                scanf("%d", &opcao);
+                if(opcao ==1)
+                {
+
+
+                    printf("Deseja alterar %s para qual nome?\n",c->cliente.nome);
+                    scanf("%s",c->cliente.nome);
+                    printf("\nNome alterado com sucesso\n");
+                }
+                else if(opcao == 2)
+                {
+                    printf("Qual o novo telefone?");
+                    scanf("%f",&c->cliente.celular);
+                    printf("\nPreço alterado com sucesso\n");
+
+                }
+                else
+                {
+                    printf("Opcao inválida");
+                }
+
+            }
+            c = c->prox;
+        }
+    }
+    else if(opcao == 2)
+    {
+        char nomeL[40];
+        printf("Digite o nome\n");
+        scanf("%s", &nomeL);
+        while (c != NULL)
+        {
+
+            if(strcmp(c->cliente.nome, nomeL)==0)
+            {
+                printf("| 1 para alterar nome\n| 2 para alterar telefone\n");
+                scanf("%d", &opcao);
+                if(opcao ==1)
+                {
+
+
+                    printf("Deseja alterar %s para qual nome?\n",c->cliente.nome);
+                    scanf("%s",c->cliente.nome);
+                    printf("\nNome alterado com sucesso\n");
+                }
+                else if(opcao == 2)
+                {
+                    printf("Qual o novo telefone?");
+                    scanf("%f",&c->cliente.celular);
+                    printf("\nTelefone alterado com sucesso\n");
+
+                }
+                else
+                {
+                    printf("Opcao inválida\n");
+                }
+
+            }
+            c = c->prox;
+        }
+
+    }
+    else
+    {
+        printf("Opcao inválida\n");
+    }
+
+    printf("----------------------------\n");
+    return cs;
 
 }
