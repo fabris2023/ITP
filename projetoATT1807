@@ -9,9 +9,10 @@ typedef struct
     float preco;
 } Produto;
 
-typedef struct itemProduto {
-  Produto produto;
-  struct itemProduto *prox;
+typedef struct itemProduto
+{
+    Produto produto;
+    struct itemProduto *prox;
 } Produtos;
 
 typedef struct
@@ -20,6 +21,11 @@ typedef struct
     char nome[30];
     char celular[10];
 } Cliente;
+
+typedef struct itemCliente{
+    Cliente cliente;
+    struct itemCliente *prox;
+}Clientes;
 
 typedef struct
 {
@@ -44,119 +50,185 @@ typedef struct
 
 //Cadastro direto de uma estrutura
 Produto cadastraProduto();
+Cliente cadastraCliente();
 
-//Manipulação das listas
+//Manipulação das listas de produto
 Produtos *insereProduto(Produtos *prod, Produto p);
 Produtos *adicionarProduto(Produtos *ps, Produto p);
+Produtos *alteraProdutos(Produtos *ps);
+Produtos *deletarPessoa(Produtos *ps);
 void printProdutos(Produtos *ps);
 
-int main (void) {
+//Manipulação das listas de cliente
 
-  int opcao = 0;
-  
-  Produtos *produtosL= NULL;
-  
-  Cliente *clientes=NULL;
+Clientes *insereClientes (Clientes *clie, Cliente c);
+Clientes *adicionaClientes (Clientes *clie,Cliente c );
+
+int main (void)
+{
+
+    int opcao = 0;
+    char tecladoLixo[20];
+    Produtos *produtosL= NULL;
+
+    Clientes *clientes=NULL;
 
 
-  while(opcao!=9){
-    
-    printf("");
+    while(opcao!=9)
+    {
 
-    printf("       ================================================\n");
-    printf("|       = SEJA BEM VINDO AO SISTEMA CRUD =     |\n");
-    printf(" ================================================\n");
-    printf("| ESCOLHA UMA OPCAO:                             |\n");
-    printf("| 1 - insere um produto no cadastro              |\n");
-    printf("| 2 - lista/altera/remove produto(s) do cadastro |\n");
-    printf("| 3 - insere um cliente no cadastro              |\n");
-    printf("| 4 - lista/altera/remove cliente(s) do cadastro |\n");
-    printf("| 5 - insere um novo pedido                      |\n");
-    printf("| 6 - lista os pedidos ja realizados             |\n");
-    printf("| 7 - exibe nota fiscal de um pedido             |\n");
-    printf("| 9 - encerra o programa                         |\n");
-    printf("       ================================================\n");
-    scanf("%d", &opcao);
-    if(opcao==1){
-      
-      produtosL = adicionarProduto(produtosL, cadastraProduto() );
-    }else if(opcao == 2){
-      
-    }else if(opcao == 3){
-      
-    }else if(opcao == 4){
-      
-    }else if(opcao == 5){
-      
-    }else if(opcao == 6){
-      
-    }else if(opcao == 7){
-      
-    }else if(opcao == 8){
-      
-    }else if(opcao == 9){
-      
-    }else{
-      
-    }  
-  }
-  
-  printProdutos(produtosL);
-  return 0;
+        printf("");
+
+        printf("       ================================================\n");
+        printf("|       = SEJA BEM VINDO AO SISTEMA CRUD =     |\n");
+        printf(" ================================================\n");
+        printf("| ESCOLHA UMA OPCAO:                             |\n");
+        printf("| 1 - insere um produto no cadastro              |\n");
+        printf("| 2 - lista/altera/remove produto(s) do cadastro |\n");
+        printf("| 3 - insere um cliente no cadastro              |\n");
+        printf("| 4 - lista/altera/remove cliente(s) do cadastro |\n");
+        printf("| 5 - insere um novo pedido                      |\n");
+        printf("| 6 - lista os pedidos ja realizados             |\n");
+        printf("| 7 - exibe nota fiscal de um pedido             |\n");
+        printf("| 9 - encerra o programa                         |\n");
+        printf("       ================================================\n");
+        scanf("%d", &opcao);
+        if(opcao==1)
+        {
+
+            produtosL = adicionarProduto(produtosL, cadastraProduto() );
+            printf("Pressione qualquer tecla e depois enter para voltar ao menu principal\n");
+            scanf("%s", &tecladoLixo);
+        }
+        else if(opcao == 2)
+        {
+            printf("ESCOLHA UMA OPÇÃO\n");
+            printf("| 1 - Listar\n| 2 - Alterar\n| 3 - Remover |\n");
+            scanf("%d", &opcao);
+            if(opcao ==1)
+            {
+                printProdutos(produtosL);
+            }
+            else if(opcao ==2)
+            {
+                produtosL = alteraProdutos(produtosL);
+            }
+            else if(opcao == 3)
+            {
+                produtosL = deletarPessoa(produtosL);
+            }
+            printf("Pressione qualquer tecla e depois enter para voltar ao menu principal\n");
+            scanf("%s", &tecladoLixo);
+        }
+        else if(opcao == 3)
+        {
+            clientes = adicionaClientes(clientes,cadastraCliente());
+            printf("Pressione qualquer tecla e depois enter para voltar ao menu principal\n");
+            scanf("%s", &tecladoLixo);
+
+        }
+        else if(opcao == 4)
+        {
+
+        }
+        else if(opcao == 5)
+        {
+
+        }
+        else if(opcao == 6)
+        {
+
+        }
+        else if(opcao == 7)
+        {
+
+        }
+        else if(opcao == 8)
+        {
+
+        }
+        else if(opcao == 9)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+
+    return 0;
 }
-
-
 //Implementando as funções --
 
 //Cadastro direto de uma estrutura
-Produto cadastraProduto(){
-  Produto prodL;
-  
-  printf("Digite um código para o produto:\n");
-  scanf("%d",&prodL.idProduto);
-  printf("Digite o nome do produto:\n");
-  scanf("%s",prodL.descricao);
-  printf("Digite o preço do produto:\n");
-  scanf("%f",&prodL.preco);
-  return prodL;
+
+Cliente cadastraCliente()
+{
+    Cliente clieL;
+
+    printf("Digite um código para o cliente:\n");
+    scanf("%d",&clieL.idCliente);
+    printf("Digite o nome do cliente:\n");
+    scanf("%s",clieL.nome);
+    printf("Digite o celular do cliente:\n");
+    scanf("%s",&clieL.celular);
+    return clieL;
+}
+Produto cadastraProduto()
+{
+    Produto prodL;
+
+    printf("Digite um código para o produto:\n");
+    scanf("%d",&prodL.idProduto);
+    printf("Digite o nome do produto:\n");
+    scanf("%s",prodL.descricao);
+    printf("Digite o preço do produto:\n");
+    scanf("%f",&prodL.preco);
+    return prodL;
 }
 
-//Manipulação das listas
-Produtos *insereProduto(Produtos *prod, Produto p){
+//Manipulação das listas de produto
+Produtos *insereProduto(Produtos *prod, Produto p)
+{
     Produtos *newprod = malloc(sizeof(Produtos));
     newprod->produto = p;
     newprod->prox = prod;
     return newprod;
 }
 
+void printProdutos(Produtos *ps)
+{
+    Produtos *p = ps;
+    printf("---- Produtos na lista: -----\n");
+    printf("   Código   |         Descrição         |   Preço   \n");
 
+    while (p != NULL)
+    {
+        printf("     %d     |%s", p->produto.idProduto, p->produto.descricao);
+        int contadorEspacos =strlen(p->produto.descricao);
+        while(contadorEspacos<27)
+        {
+            printf(" ");
+            contadorEspacos++;
+        }
+        printf("|%0.2f\n",p->produto.preco);
+        //p->produto.descricao;
+        //p->produto.preco);
 
-void printProdutos(Produtos *ps) {
-  Produtos *p = ps;
-  printf("---- Produtos na lista: -----\n");
-  printf("   Código   |         Descrição         |   Preço   \n");
-  
-  while (p != NULL) {
-    printf("     %d     |%s", p->produto.idProduto, p->produto.descricao); 
-      int contadorEspacos =strlen(p->produto.descricao);
-      while(contadorEspacos<27){
-        printf(" ");
-        contadorEspacos++;
-      }
-      printf("|%0.2f\n",p->produto.preco);
-      //p->produto.descricao;
-      //p->produto.preco);
-    
-    p = p->prox;
-  }
-  printf("----------------------------\n");
+        p = p->prox;
+    }
+    printf("----------------------------\n");
 }
-Produtos *adicionarProduto(Produtos *ps, Produto p) {
+Produtos *adicionarProduto(Produtos *ps, Produto p)
+{
     Produtos *lastp = ps;
     // checa se a lista está vazia
     if (lastp == NULL)
         return insereProduto(NULL, p);
-    else {
+    else
+    {
         // avança até encontrar o último
         while (lastp->prox != NULL)
             lastp = lastp->prox;
@@ -166,31 +238,210 @@ Produtos *adicionarProduto(Produtos *ps, Produto p) {
     }
 }
 
-void alteraProdutos(Produtos *ps) {
-  Produtos *p = ps;
-  int opcao =0;
-  printf("1-Alterar produto pelo código\n2-Alterar produto pelo nome");
-  if(opcao==1){
-    int codigo=0;
-    printf("Digite o código");
-    scanf("%d", &codigo);
-    while (p != NULL) {
-      if(p->produto.idProduto==codigo){
-        printf("1 para alterar descrição\n 2 para alterar preço");
-        scanf("%d", &opcao);
-        if(opcao ==1){
-          char novoNome[40];
-          
-          printf("Deseja alterar %s para qual nome?",p->produto.descricao);
-          scanf("%s", novoNome);
-          
+Produtos *alteraProdutos(Produtos *ps)
+{
+    Produtos *p = ps;
+    int opcao =0;
+    printf("ESCOLHA UMA OPÇÃO\n");
+    printf("| 1-Alterar produto pelo código\n| 2-Alterar produto pelo nome\n");
+    scanf("%d", &opcao);
+    if(opcao==1)
+    {
+        int codigo=0;
+        printf("Digite o código\n");
+        scanf("%d", &codigo);
+        while (p != NULL)
+        {
+            if(p->produto.idProduto==codigo)
+            {
+                printf("| 1 para alterar descrição\n| 2 para alterar preço");
+                scanf("%d", &opcao);
+                if(opcao ==1)
+                {
+
+
+                    printf("Deseja alterar %s para qual nome?\n",p->produto.descricao);
+                    scanf("%s",p->produto.descricao);
+                    printf("\nNome alterado com sucesso\n");
+                }
+                else if(opcao == 2)
+                {
+                    printf("Qual o novo preço?");
+                    scanf("%f",&p->produto.preco);
+                    printf("\nPreço alterado com sucesso\n");
+
+                }
+                else
+                {
+                    printf("Opcao inválida");
+                }
+
+            }
+            p = p->prox;
         }
+    }
+    else if(opcao == 2)
+    {
+        char nomeL[40];
+        printf("Digite o nome\n");
+        scanf("%s", &nomeL);
+        while (p != NULL)
+        {
+
+            if(strcmp(p->produto.descricao, nomeL)==0)
+            {
+                printf("| 1 para alterar descrição\n| 2 para alterar preço\n");
+                scanf("%d", &opcao);
+                if(opcao ==1)
+                {
+
+
+                    printf("Deseja alterar %s para qual nome?\n",p->produto.descricao);
+                    scanf("%s",p->produto.descricao);
+                    printf("\nNome alterado com sucesso\n");
+                }
+                else if(opcao == 2)
+                {
+                    printf("Qual o novo preço?");
+                    scanf("%f",&p->produto.preco);
+                    printf("\nPreço alterado com sucesso\n");
+
+                }
+                else
+                {
+                    printf("Opcao inválida\n");
+                }
+
+            }
+            p = p->prox;
         }
-      p = p->prox;
-    }    
-    
-  }else{
-    
-  }
-  printf("----------------------------\n");
+
+    }
+    else
+    {
+        printf("Opcao inválida\n");
+    }
+
+    printf("----------------------------\n");
+    return ps;
+}
+
+Produtos *deletarPessoa(Produtos *ps)
+{
+    Produtos *pant, *pprox;
+    int opcao =0;
+    printf("ESCOLHA UMA OPÇÃO\n");
+    printf("| 1-Alterar produto pelo código\n| 2-Alterar produto pelo nome\n");
+    scanf("%d", &opcao);
+
+    // verifica se existe alguém na lista
+    if(opcao ==1)
+    {
+        int codigo;
+        printf("Digite o código:\n");
+        scanf("%d", &codigo);
+        if (ps != NULL)
+        {
+            pant = ps;
+            pprox = pant->prox;
+            // verifica logo se o 1o elemento na lista
+            // é o que será deletado
+            if (pant->produto.idProduto == codigo)
+            {
+                printf("Deletado com sucesso\n");
+                free(pant);
+                return pprox;
+
+            }
+            else
+            {
+                while (pprox != NULL)
+                {
+                    // o próximo é o que estamos procurando?
+                    if (pprox->produto.idProduto == codigo)
+                    {
+                        printf("Deletado com sucesso\n");
+                        // o próx. do próx. será o próx. do anterior
+                        pant->prox = pprox->prox;
+                        // remove o que estávamos procurando
+                        free(pprox);
+
+                    }
+                    // avança para o próximo
+                    pant = pprox;
+                    pprox = pprox->prox;
+                }
+            }
+        }
+    }else if(opcao == 2){
+
+        char nome[40];
+        printf("Digite o nome:\n");
+        scanf("%s", nome);
+        if (ps != NULL)
+        {
+            pant = ps;
+            pprox = pant->prox;
+            // verifica logo se o 1o elemento na lista
+            // é o que será deletado
+            if (strcmp(pant->produto.descricao, nome)==0)
+            {
+                printf("Deletado com sucesso\n");
+                free(pant);
+                return pprox;
+
+            }
+            else
+            {
+                while (pprox != NULL)
+                {
+                    // o próximo é o que estamos procurando?
+                    if (strcmp(pprox->produto.descricao, nome)==0)
+                    {
+                        printf("Deletado com sucesso\n");
+                        // o próx. do próx. será o próx. do anterior
+                        pant->prox = pprox->prox;
+                        // remove o que estávamos procurando
+                        free(pprox);
+
+                    }
+                    // avança para o próximo
+                    pant = pprox;
+                    pprox = pprox->prox;
+                }
+            }
+        }
+
+
+    }else{
+
+        printf("\nOpção invalida\n");
+
+    }
+    return ps;
+}
+
+//manipulação das listas de Cliente
+
+Clientes *insereClientes (Clientes *clie, Cliente c){
+    Clientes *newcli = malloc(sizeof(Clientes));
+    newcli->cliente = c;
+    newcli->prox = clie;
+    return newcli;
+}
+Clientes *adicionaClientes(Clientes *clie, Cliente c){
+     Clientes *lastc = clie;
+    // checa se a lista está vazia
+    if (lastc == NULL)
+        return insereClientes(NULL, c);
+    else
+    {
+        // avança até encontrar o último
+        while (lastc->prox != NULL)
+            lastc = lastc->prox;
+        lastc->prox = insereClientes(NULL, c);
+        // o primeiro continua sendo ps
+        return clie;
+    }
+
 }
